@@ -571,7 +571,6 @@ background-color: var(--bg-dark);
 
   .menu-title {
     display: block;
-    /* solo se ve en pantallas pequeñas */
     text-align: left;
     padding: 0 1.5rem 2rem 1.5rem;
   }
@@ -595,7 +594,7 @@ background-color: var(--bg-dark);
     left: -50%;
     width: 50%;
     height: 100vh;
-    background-color: #0077cc;
+    background-color: var(--bg-secondary);
     overflow-y: auto;
     transition: left 0.3s ease;
     z-index: 999;
