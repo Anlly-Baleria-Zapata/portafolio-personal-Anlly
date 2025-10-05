@@ -46,3 +46,71 @@ document.querySelectorAll('.nav a').forEach(link => {
     });
   });
 
+const form = document.getElementById("contactForm");
+const formMessage = document.getElementById("formMessage");
+
+// Función para validar cada campo en tiempo real
+function validateField(field) {
+  const value = field.value.trim();
+  let valid = true;
+  let message = "";
+
+  if (!value) {
+    valid = false;
+    message = "Este campo es obligatorio";
+  } else if (field.type === "email") {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      valid = false;
+      message = "Email inválido";
+    }
+  }
+
+  if (!valid) {
+    field.style.borderColor = "#FF00FF"; 
+  } else {
+    field.style.borderColor = "#00FFF7"; 
+  }
+
+  return valid;
+}
+
+// Validación en tiempo real
+form.querySelectorAll("input, textarea").forEach(field => {
+  field.addEventListener("input", () => validateField(field));
+});
+
+// Función para enviar el formulario
+form.addEventListener("submit", function (e) {
+  e.preventDefault(); // evita recargar la página
+
+  let isValid = true;
+
+  // Validamos todos los campos
+  form.querySelectorAll("input, textarea").forEach(field => {
+    if (!validateField(field)) {
+      isValid = false;
+    }
+  });
+
+  if (!isValid) {
+    formMessage.textContent = "Por favor, corrige los errores antes de enviar";
+    formMessage.style.color = "#FF00FF";
+    return;
+  }
+
+  // Simulación de envío 
+  formMessage.textContent = "Enviando...";
+  formMessage.style.color = "#00FFF7";
+
+  setTimeout(() => {
+    formMessage.textContent = "¡Mensaje enviado con éxito!";
+    formMessage.style.color = "#00FFF7";
+    form.reset();
+    form.querySelectorAll("input, textarea").forEach(field => {
+      field.style.borderColor = "";
+    });
+  }, 1000);
+});
+
+
